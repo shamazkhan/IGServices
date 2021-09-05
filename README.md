@@ -1,7 +1,7 @@
 # IGServices
 IG Invest Rest &amp; Stream API with ODM
 
-# Build interface to IG Trading 
+Build interface to IG Trading 
 IG Trading API to build Buy/Sell and Retrieve portfolio functions. 
 
 # IG Rest API:
