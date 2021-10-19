@@ -8,6 +8,20 @@ Organisation: Quantl AI Ltd
 import requests
 import json
 import pandas as pd
+import numpy as np
+from datetime import timedelta, datetime
+from utils import _HAS_PANDAS, _HAS_MUNCH
+from utils import conv_resol, conv_datetime, conv_to_ms, DATE_FORMATS, munchify
+from tenacity import Retrying
+
+
+class ApiExceededException(Exception):
+    """Raised when our code hits the IG endpoint too often"""
+    pass
+
+
+class IGException(Exception):
+    pass
 
 
 class IGService:
@@ -27,12 +41,15 @@ class IGService:
     IG_USERNAME = None
     IG_PASSWORD = None
 
-    def __init__(self, username, password, api_key, acc_type="demo", acc_id=None):
+    def __init__(self, username, password, api_key, acc_type="demo", acc_id=None, retryer: Retrying = None):
         """Constructor, calls the method required to connect to the API (accepts acc_type = LIVE or DEMO)"""
         self.API_KEY = api_key
         self.IG_USERNAME = username
         self.IG_PASSWORD = password
         self.acc_id = acc_id
+        return_dataframe = _HAS_PANDAS,
+        return_munch = _HAS_MUNCH,
+        self._retryer = retryer
 
         try:
             self.BASE_URL = self.D_BASE_URL[acc_type.lower()]
@@ -334,6 +351,29 @@ class IGService:
         if self.return_dataframe:
             data = pd.DataFrame(data['markets'])
         return (data)
+
+    '''
+    def fetch_historical_prices_by_epic_and_num_points(self, epic, resolution,
+                                                       numpoints, session=None,
+                                                       format=None):
+        """Returns a list of historical prices for the given epic, resolution,
+        number of points"""
+        version = "2"
+        if self.return_dataframe:
+            resolution = conv_resol(resolution)
+        params = {}
+        url_params = {"epic": epic, "resolution": resolution, "numpoints": numpoints}
+        endpoint = "/prices/{epic}/{resolution}/{numpoints}".format(**url_params)
+        action = "read"
+        response = self._req(action, endpoint, params, session, version)
+        data = self.parse_response(response.text)
+        if format is None:
+            format = self.format_prices
+        if self.return_dataframe:
+            data["prices"] = format(data["prices"], version)
+            data['prices'] = data['prices'].fillna(value=np.nan)
+        return data
+    '''
 
     def fetch_historical_prices_by_epic_and_date_range(self, epic, resolution, start_date, end_date):
         """Returns a list of historical prices for the given epic, resolution, multiplier and date range"""
