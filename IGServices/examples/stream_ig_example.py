@@ -8,11 +8,10 @@ IG Markets Stream API sample with Python
 
 import logging
 
-
-from config import config
-from rest import IGService
-from stream import IGStreamService
-from lightstreamer import LSClient, Subscription
+from IGServices.config.trade_ig_config import config
+from IGServices.rest import IGService
+from IGServices.stream import IGStreamService
+from IGServices.lightstreamer import LSClient, Subscription
 
 # A simple function acting as a Subscription listener
 def on_prices_update(item_update):
