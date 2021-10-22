@@ -3,6 +3,7 @@
 
 import os
 import logging
+import sys
 
 ENV_VAR_ROOT = "IG_SERVICE"
 CONFIG_FILE_NAME = "trading_ig_config.py"
@@ -30,7 +31,8 @@ class ConfigEnvVar(object):
 
 
 try:
-    from trading_ig_config import config
+    sys.path.append('/.../IGServices/IGservices/config/')
+
 
     logger.info("import config from %s" % CONFIG_FILE_NAME)
 except Exception:

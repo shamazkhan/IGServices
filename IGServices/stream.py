@@ -10,7 +10,7 @@ from __future__ import absolute_import, division, print_function
 import sys
 import traceback
 import logging
-from lightstreamer import LSClient
+from IGServices.lightstreamer import LSClient
 
 logger = logging.getLogger(__name__)
 

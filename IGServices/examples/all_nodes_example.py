@@ -1,6 +1,6 @@
 ''' all nodes fetch - transverse navigation tree and get epics'''
-from rest import IGService, ApiExceededException
-from config import config
+from IGServices.rest import IGService, ApiExceededException
+from IGServices.config import config
 from tenacity import Retrying, wait_exponential, retry_if_exception_type
 
 

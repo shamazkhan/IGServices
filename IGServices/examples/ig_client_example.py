@@ -5,20 +5,20 @@ Author: Shamaz Khan
 Organisation: Quantl AI Ltd
 """
 
-from rest import IGService
 
+from IGServices.rest import IGService
 
 # Required User details
-userName = 'shamazkhan86'
-secureWord = 'A330airbus?'
-APIKey = '3dffcba4bd2570d8b36c204ecc92554cc1d11eb4'
+userName = 'ShamazKhan'
+secureWord = 'A330airbus'
+APIKey = 'd8253bf4a2eece83585a8e317360e430173d050a'
 
 #Establish Connection to IG Trade
 ig_trade = IGService(userName,
                        secureWord,
                        APIKey)
 currentSession = ig_trade.create_session()
-print(currentSession,'\n')
+print(currentSession)
 print('Account owned by user', userName)
 userAccounts = ig_trade.fetch_accounts()
 print(userAccounts)

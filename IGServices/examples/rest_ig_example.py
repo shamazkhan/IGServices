@@ -8,8 +8,10 @@ IG Markets REST API sample with Python
 
 import logging
 import requests
-from rest import IGService
+from IGServices.rest import IGService
+import sys
 from trading_ig_config import config
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -18,6 +20,7 @@ logger.setLevel(logging.DEBUG)
 from datetime import timedelta
 import requests_cache
 
+sys.path.append('/...IGServices/config')
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
