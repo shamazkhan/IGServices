@@ -10,8 +10,7 @@ import logging
 import requests
 from IGServices.rest import IGService
 import sys
-from trading_ig_config import config
-
+from IGServices.config.trade_ig_config import config
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
